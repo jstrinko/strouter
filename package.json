@@ -1,0 +1,17 @@
+{
+	"name": "strouter",
+	"description": "Strinko's Router",
+	"version": "0.0.1",
+	"author": "Jeff Strinko <jeff@strinko.com>",
+	"repository": {
+		"type": "git",
+		"url": "http://git.strinko.com/git/repos/strouter"
+	},
+	"dependencies": {
+		"express": "4.8.2",
+		"async": "0.2.x",
+		"underscore": "1.5.x",
+		"cluster": "0.7.7",
+		"commander": "2.3.0"
+	}
+}

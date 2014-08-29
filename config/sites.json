@@ -1,0 +1,4 @@
+{
+	"strinko.com": "__SRCTOP__/strinko/server.js",
+	"secretchugs.com": "__SRCTOP__/secretchugs/server.js"
+}
