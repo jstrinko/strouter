@@ -1,39 +1,32 @@
+#!/usr/bin/env node
+
 var cluster = require('cluster'),
 	os = require('os'),
 	fs = require('fs'),
 	commander = require('commander'),
-	sexio = require(process.env.SRCTOP + '/sexio/sexio.js'),
 	strouter = require('../lib/strouter.js');
 
-commander.option('-c, --config <config>', 'Config File', String, process.env.SRCTOP + '/strouter/config/sexio.json')
+commander.option('-c, --config <config>', 'Config File', String, process.env.SRCTOP + '/strouter/config/sites.json')
 	.parse(process.argv);
 
 var spawn_new_worker = true;
-if (Cluster.isMaster) {
-	Cluster.fork();
-	Cluster.on('exit', function(worker) {
+if (cluster.isMaster) {
+	var num_CPUs = os.cpus().length;
+	for(var x=0; x<num_CPUs; x++) {
+		cluster.fork();
+	}
+	cluster.on('exit', function(worker) {
 		if (spawn_new_worker) {
-			Cluster.fork();
+			cluster.fork();
 		}
 	});
 }
 else {
-	var strouter = new strouter();
-	var sexio = new sexio({
+	var router = new strouter({
 		config_files: {
-			sexio: program.config,
-			routes: process.env.SRCTOP + '/strouter/config/sexio-routes.json',
-			sites: process.env.SRCTOP + '/strouter/config/sites.json'
-		},
-		handler: strouter,
+			sites: commander.config
+		}
 	});
+	router.start();
 }
 
-var express = require('express');
-var app = express();
-
-app.all('*', function(req, res) {
-	res.send(req.headers.host);
-});
-
-app.listen(process.env.HTTP_PORT);

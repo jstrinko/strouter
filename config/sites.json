@@ -1,4 +1,4 @@
 {
-	"strinko.com": "__SRCTOP__/strinko/server.js",
-	"secretchugs.com": "__SRCTOP__/secretchugs/server.js"
+	"strinko.com": "__SRCTOP__/strinko/lib/server.js",
+	"secretchugs.com": "__SRCTOP__/secretchugs/lib/server.js"
 }
