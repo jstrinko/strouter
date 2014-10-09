@@ -9,7 +9,7 @@ config.config_files = {
 config.load_config_files();
 var sites = config.configuration.sites;
 var grunt_config = {
-	clean: []
+	clean: {} 
 };
 _.each(
 	Object.keys(sites),
@@ -17,8 +17,15 @@ _.each(
 		var def = require(sites[key]);
 		var instance = new def();
 		var routes = instance.routes;
-		grunt_config.clean.push(SRCTOP + '/' + instance.package_name + '/tmp/*');
-		grunt_config.clean.push(SRCTOP + '/' + instance.package_name + '/build/*');
+		grunt_config.clean[instance.package_name] = {
+			options: { 
+				force: true
+			},
+			src: [
+				SRCTOP + '/' + instance.package_name + '/tmp/*',
+				SRCTOP + '/' + instance.package_name + '/build/*'
+			]
+		};
 		_.each(
 			Object.keys(routes),
 			function(route_id) {
@@ -51,7 +58,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-text-replace');
-	grunt.registerTask('default', ['build']);
+	grunt.registerTask('default', ['watch']);
 	var build_tasks = [];
 	_.each(['clean','copy','less','concat'], function(key) {
 		if (grunt_config[key]) {
