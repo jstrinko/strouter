@@ -48,7 +48,6 @@ _.each(
 	}
 );
 
-console.warn(JSON.stringify(grunt_config, null, 2));
 module.exports = function(grunt) {
 	grunt.initConfig(grunt_config);
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -58,9 +57,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-text-replace');
+	grunt.loadNpmTasks('grunt-react');
 	grunt.registerTask('default', ['watch']);
 	var build_tasks = [];
-	_.each(['clean','copy','less','concat'], function(key) {
+	_.each(['clean','copy','less','react', 'concat'], function(key) {
 		if (grunt_config[key]) {
 			build_tasks.push(key);
 		}
