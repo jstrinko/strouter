@@ -1,8 +1,8 @@
 {
 	"name": "strouter",
-	"description": "Strinko's Router",
+	"description": "Flexible framework for either routing or serving multiple sites with node + express",
 	"version": "0.0.1",
-	"author": "Jeff Strinko <jeff@strinko.com>",
+	"author": "Jeff Strinko <jstrinko@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "http://git.strinko.com/git/repos/strouter"
